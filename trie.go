@@ -1,5 +1,6 @@
-// Package trie is an implementation of a trie (prefix tree) data structure over byte slices. It provides a
-// small and simple API for usage as a set as well as a 'Node' API for walking the trie.
+// Package trie is an implementation of a trie (prefix tree) data structure over byte slices.
+// It provides a small and simple API for usage as a set
+// as well as a 'Node' API for walking the trie.
 package trie
 
 // A Trie is a a prefix tree.
@@ -46,8 +47,8 @@ func (t *Trie) Contains(b []byte) bool {
 	return n.terminal
 }
 
-// Root returns the root node of a Trie. A valid Trie (i.e., constructed with New), always has a non-nil root
-// node.
+// Root returns the root node of a Trie.
+// A valid Trie (i.e., constructed with New) always has a non-nil root node.
 func (t *Trie) Root() *Node {
 	return t.root
 }
@@ -59,22 +60,23 @@ type Node struct {
 	hasChildren bool
 }
 
-// Walk returns the node reached along edge c, if one exists. The ok value indicates whether such a node
-// exist.
+// Walk returns the node reached along edge c, if one exists.
+// The ok value indicates whether such a node exists.
 func (n *Node) Walk(c byte) (next *Node, ok bool) {
 	next = n.branches[int(c)]
 	return next, (next != nil)
 }
 
-// Terminal indicates whether n is terminal in the trie (that is, whether the path from the root to n
-// represents an element in the set). For instance, if the root node is terminal, then []byte{} is in the
-// trie.
+// Terminal indicates whether n is terminal in the trie;
+// that is, whether the path from the root to n represents an element in the set.
+// For instance, if the root node is terminal, then []byte{} is in the trie.
 func (n *Node) Terminal() bool {
 	return n.terminal
 }
 
-// Leaf indicates whether n is a leaf node in the trie (that is, whether it has children). A leaf node must be
-// terminal (else it would not exist). Logically, if n is a leaf node then the []byte represented by the path
+// Leaf indicates whether n is a leaf node in the trie (has no children).
+// A leaf node must be terminal (else it would not exist).
+// Logically, if n is a leaf node then the []byte represented by the path
 // from the root to n is not a proper prefix of any element of the trie.
 func (n *Node) Leaf() bool {
 	return !n.hasChildren
